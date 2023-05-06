@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function getCompChoice() {
+        let ranNum = Math.floor(Math.random() * 3) + 1;
+
+        let compSelection = "";
+
+        if (ranNum == 1) {
+          compSelection = "Rock";
+        } else if (ranNum == 2) {
+          compSelection = "Paper";
+        } else if (ranNum == 3) {
+          compSelection = "Scissors";
+        }
+        return compSelection;
+      }
+
+      let playerSelection = prompt("Rock, Paper, or Scissors?");
+
+      function startRound(compSelection, playerSelection) {
+        let ps = playerSelection.toLowerCase();
+
+        let outcome = "";
+
+        if (ps == "rock" && compSelection == "Rock") {
+          outcome = "Draw! Both players chose Rock!";
+        } else if (ps == "rock" && compSelection == "Paper") {
+          outcome = "You Lose! Paper Beats Rock!";
+        } else if (ps == "rock" && compSelection == "Scissors") {
+          outcome = "You Win! Rock beats Paper!";
+        } else if (ps == "paper" && compSelection == "Rock") {
+          outcome = "You Win! Paper beats Rock!";
+        } else if (ps == "paper" && compSelection == "Paper") {
+          outcome = "Draw! Both players chose Paper!";
+        } else if (ps == "paper" && compSelection == "Scissors") {
+          outcome = "You Lose! Scissors beats Paper!";
+        } else if (ps == "scissors" && compSelection == "Rock") {
+          outcome = "You Lose! Rock beats Paper!";
+        } else if (ps == "scissors" && compSelection == "Paper") {
+          outcome = "You Win! Scissors beats Paper!";
+        } else if (ps == "scissors" && compSelection == "Scissors") {
+          outcome = "Draw! Both players chose Scissors";
+        }
+
+        return outcome;
+      }
+
+      console.log(startRound(getCompChoice(), playerSelection));
+    </script>
+  </body>
+</html>
