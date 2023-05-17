@@ -7,7 +7,20 @@
     <title>Document</title>
   </head>
   <body>
+    <div class="content">
+      <button class="btn" id="rock">ROCK</button>
+      <button class="btn" id="paper">PAPER</button>
+      <button class="btn" id="scissors">SCISSORS</button>
+      <div id="scoreBoard"></div>
+    </div>
+
     <script>
+      const btns = document.querySelectorAll(".btn");
+      const content = document.querySelector(".content");
+      const scoreBoard = document.querySelector("#scoreBoard");
+      let playerScore = 0;
+      let compScore = 0;
+
       function getCompChoice() {
         let ranNum = Math.floor(Math.random() * 3) + 1;
 
@@ -23,29 +36,34 @@
         return compSelection;
       }
 
-      let playerSelection = prompt("Rock, Paper, or Scissors?");
+      // let playerSelection = prompt("Rock, Paper, or Scissors?");
 
-      function startRound(compSelection, playerSelection) {
-        let ps = playerSelection.toLowerCase();
-
+      function startRound(compSelection, btn) {
+        let ps = btn;
         let outcome = "";
 
         if (ps == "rock" && compSelection == "Rock") {
           outcome = "Draw! Both players chose Rock!";
         } else if (ps == "rock" && compSelection == "Paper") {
           outcome = "You Lose! Paper Beats Rock!";
+          compScore = compScore++;
         } else if (ps == "rock" && compSelection == "Scissors") {
-          outcome = "You Win! Rock beats Paper!";
+          outcome = "You Win! Rock beats Scissors!";
+          playerScore = playerScore++;
         } else if (ps == "paper" && compSelection == "Rock") {
           outcome = "You Win! Paper beats Rock!";
+          playerScore = playerScore++;
         } else if (ps == "paper" && compSelection == "Paper") {
           outcome = "Draw! Both players chose Paper!";
         } else if (ps == "paper" && compSelection == "Scissors") {
           outcome = "You Lose! Scissors beats Paper!";
+          compScore = compScore++;
         } else if (ps == "scissors" && compSelection == "Rock") {
           outcome = "You Lose! Rock beats Paper!";
+          compScore = compScore++;
         } else if (ps == "scissors" && compSelection == "Paper") {
           outcome = "You Win! Scissors beats Paper!";
+          playerScore = playerScore++;
         } else if (ps == "scissors" && compSelection == "Scissors") {
           outcome = "Draw! Both players chose Scissors";
         }
@@ -53,7 +71,33 @@
         return outcome;
       }
 
-      console.log(startRound(getCompChoice(), playerSelection));
+      btns.forEach((button) => {
+        button.addEventListener("click", () => {
+          let btn = button.id;
+          let outcome = document.createElement("div");
+          let score = document.createElement("div");
+
+          outcome.setAttribute("id", "outcome");
+          outcome.textContent = startRound(getCompChoice(), btn);
+
+          score.setAttribute("id", "score");
+          score.textContent = `You: ${playerScore} Comp: ${compScore}`;
+
+          if (document.contains(document.getElementById("outcome"))) {
+            document.getElementById("outcome").remove();
+            content.appendChild(outcome);
+          } else {
+            content.appendChild(outcome);
+          }
+
+          if (document.contains(document.getElementById("score"))) {
+            document.getElementById("score").remove();
+            scoreBoard.appendChild(score);
+          } else {
+            scoreBoard.appendChild(score);
+          }
+        });
+      });
     </script>
   </body>
 </html>
